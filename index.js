@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+const { green: g, dim: d } = require("chalk");
+const alert = require("cli-alerts");
+
 const path = require("path");
 const copy = require("copy-template-dir");
 
@@ -25,17 +28,25 @@ const log = console.log;
     version,
   };
 
-  const inDir = path.join(__dirname, `template`);
-  const outDir = path.join(process.cwd(), `output`);
+  const inDirPath = path.join(__dirname, `template`);
+  const outDirPath = path.join(process.cwd(), `output`);
 
-  log(`\nCreating Files in ${outDir}`);
-
-  copy(inDir, outDir, vars, (err, createFiles) => {
+  copy(inDirPath, outDirPath, vars, (err, createdFiles) => {
     if (err) throw err;
-    createFiles.forEach((filePath) => {
+
+    log(d(`\nCreating Files in ${g(outDirPath)}`));
+
+    createdFiles.forEach((filePath) => {
       const fileName = path.basename(filePath);
       log(`Created: ${fileName}`);
     });
-    log("Done!\n");
+
+    alert({
+      type: "success",
+      name: "DONE",
+      msg: `\n\n${createdFiles.length} files created in ${d(
+        outDirPath
+      )} directory`,
+    });
   });
 })();
