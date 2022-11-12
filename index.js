@@ -7,6 +7,8 @@ const handleError = require("cli-handle-error");
 
 const init = require("./utils/init");
 
+const log = console.log;
+
 (async () => {
   init();
 
@@ -20,13 +22,22 @@ const init = require("./utils/init");
   handleError(`INPUT`, err);
 
   const vars = {
-    name: `foo`,
+    name,
     description: `CLI to foo`,
     version: `0.0.1`,
   };
 
   const inDir = path.join(__dirname, `template`);
-  const outDir = path.join(process.cwd(), vars.name);
+  const outDir = path.join(process.cwd(), `output`);
 
-  copy(inDir, outDir, vars, (err, createFiles) => {});
+  log(`\nCreating Files in ${outDir}`);
+
+  copy(inDir, outDir, vars, (err, createFiles) => {
+    if (err) throw err;
+    createFiles.forEach((filePath) => {
+      const fileName = path.basename(filePath);
+      log(`Created: ${fileName}`);
+    });
+    log("Done!\n");
+  });
 })();
