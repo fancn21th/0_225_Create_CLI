@@ -1,0 +1,11 @@
+{
+  "name": "cnc",
+  "bin": {
+    "cnc": "index.js",
+    "fcli": "index.js"
+  },
+  "version": "0.0.1",
+  "dependencies": {
+    "copy-template-dir": "1.4.0"
+  }
+}
