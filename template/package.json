@@ -1,3 +1,8 @@
 {
-  "name": "{{name}}"
+  "name": "{{name}}",
+  "bin": {
+    "{{name}}": "index.js"
+  },
+  "version": "{{version}}",
+  "description": "{{description}}"
 }

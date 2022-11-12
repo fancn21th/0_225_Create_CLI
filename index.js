@@ -4,6 +4,8 @@ const copy = require("copy-template-dir");
 
 const vars = {
   name: "foo",
+  description: "foo cli",
+  version: "0.0.1",
 };
 
 const inDir = path.join(__dirname, `template`);

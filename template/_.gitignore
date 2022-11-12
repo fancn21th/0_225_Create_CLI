@@ -7,6 +7,3 @@ node_modules/
 # No lock files.
 package-lock.json
 yarn.lock
-
-# Output directory for this command
-output
