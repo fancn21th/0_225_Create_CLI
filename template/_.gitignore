@@ -1,0 +1,12 @@
+# NPM #
+##########
+# Ignore all directories called node_modules in current folder and any subfolders.
+node_modules/
+/node_modules/
+
+# No lock files.
+package-lock.json
+yarn.lock
+
+# Output directory for this command
+output
