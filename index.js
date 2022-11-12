@@ -8,13 +8,19 @@ const vars = {
   version: "0.0.1",
 };
 
+// helper
+const log = console.log;
+
 const inDir = path.join(__dirname, `template`);
 const outDir = path.join(process.cwd(), `output`);
 
-console.log({ inDir });
+log(`\nCreate files in ./${outDir}`);
 
 copy(inDir, outDir, vars, (err, createdFiles) => {
   if (err) throw err;
-  createdFiles.forEach((filePath) => console.log(`Created ${filePath}`));
-  console.log("done!");
+  createdFiles.forEach((filePath) => {
+    const fileName = path.basename(filePath);
+    log(`Created: ${fileName}`);
+  });
+  log("Done!\n");
 });
