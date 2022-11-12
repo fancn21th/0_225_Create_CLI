@@ -34,11 +34,11 @@ const log = console.log;
   copy(inDirPath, outDirPath, vars, (err, createdFiles) => {
     if (err) throw err;
 
-    log(d(`\nCreating Files in ${g(outDirPath)}`));
+    log(g(`\nCreating Files in ${d(outDirPath)}\n`));
 
     createdFiles.forEach((filePath) => {
       const fileName = path.basename(filePath);
-      log(`Created: ${fileName}`);
+      log(`${g("CREATED:")} ${d(fileName)}`);
     });
 
     alert({
