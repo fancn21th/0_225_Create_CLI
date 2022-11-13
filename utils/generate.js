@@ -28,14 +28,23 @@ module.exports = async () => {
     });
 
     // dedup
-    spinner.start(`${y("DEDUP")} running...`);
+    spinner.start(
+      `\n${y("DEPENDENCIES")} installing...\n\n${d("It may take a while...")}`
+    );
     process.chdir(outDirPath);
+
+    // pkgs install
+    const pkgs = ["meow", "cli-meow-help"];
+
+    await execa("npm", ["install", ...pkgs]);
+
     await execa("npm", ["dedup"]);
-    spinner.succeed(`${g("DEDUP")} ran`);
+
+    spinner.succeed(`${g("DEPENDENCIES")} installed!`);
 
     alert({
       type: "success",
-      name: "DONE",
+      name: "ALL DONE",
       msg: `\n\n${createdFiles.length} files created in ${d(
         outDirPath
       )} directory`,
