@@ -2,7 +2,7 @@ const welcome = require("cli-welcome");
 const pkg = require("./../package.json");
 const unhandled = require("cli-handle-unhandled");
 
-module.exports = () => {
+module.exports = ({ clear }) => {
   unhandled();
 
   welcome({
@@ -12,7 +12,7 @@ module.exports = () => {
     version: pkg.version,
     bgColor: "#6cc24a",
     color: "#000000",
-    clear: true,
+    clear,
     bold: true,
   });
 };

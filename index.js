@@ -1,52 +1,24 @@
 #!/usr/bin/env node
-const { green: g, dim: d } = require("chalk");
-const alert = require("cli-alerts");
-
-const path = require("path");
-const copy = require("copy-template-dir");
 
 const init = require("./utils/init");
-const ask = require("./utils/ask");
+const cli = require("./utils/cli");
+const generate = require("./utils/generate");
 
-const log = console.log;
+const log = require("./utils/log");
+
+const input = cli.input;
+const flags = cli.flags;
+const { clear, debug } = flags;
 
 (async () => {
-  init();
+  init({ clear });
 
-  const name = await ask({ message: `CLI name ?`, hint: `(kebab-case only)` });
-  const description = await ask({
-    message: `CLI description ?`,
-  });
-  const version = await ask({
-    message: `CLI version ?`,
-    initial: `0.0.1`,
-  });
+  //  help
+  input.includes("help") && cli.showHelp(0);
 
-  const vars = {
-    name,
-    description,
-    version,
-  };
+  // generate
+  await generate();
 
-  const inDirPath = path.join(__dirname, `template`);
-  const outDirPath = path.join(process.cwd(), `output`);
-
-  copy(inDirPath, outDirPath, vars, (err, createdFiles) => {
-    if (err) throw err;
-
-    log(g(`\nCreating Files in ${d(outDirPath)}\n`));
-
-    createdFiles.forEach((filePath) => {
-      const fileName = path.basename(filePath);
-      log(`${g("CREATED:")} ${d(fileName)}`);
-    });
-
-    alert({
-      type: "success",
-      name: "DONE",
-      msg: `\n\n${createdFiles.length} files created in ${d(
-        outDirPath
-      )} directory`,
-    });
-  });
+  // debug
+  debug && log(flags);
 })();
