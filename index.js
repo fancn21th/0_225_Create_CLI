@@ -16,9 +16,9 @@ const { clear, debug } = flags;
   //  help
   input.includes("help") && cli.showHelp(0);
 
-  // generate
-  await generate();
-
   // debug
   debug && log(flags);
+
+  // generate
+  await generate();
 })();
