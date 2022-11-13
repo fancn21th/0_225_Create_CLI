@@ -3,6 +3,11 @@ const ask = require("./ask");
 module.exports = async () => {
   // inputs
   const name = await ask({ message: `CLI name ?`, hint: `(kebab-case only)` });
+  const command = await ask({
+    message: `CLI command ?`,
+    hint: `(optional: if different from CLI name given above)`,
+    initial: name,
+  });
   const description = await ask({
     message: `CLI description ?`,
   });
@@ -16,6 +21,7 @@ module.exports = async () => {
     name,
     description,
     version,
+    command,
   };
 
   return vars;

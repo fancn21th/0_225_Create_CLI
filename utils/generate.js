@@ -1,3 +1,4 @@
+const execa = require("execa");
 const { green: g, dim: d } = require("chalk");
 const path = require("path");
 const copy = require("copy-template-dir");
@@ -14,7 +15,7 @@ module.exports = async () => {
   const inDirPath = path.join(__dirname, `../template`);
   const outDirPath = path.join(process.cwd(), `output`);
 
-  copy(inDirPath, outDirPath, vars, (err, createdFiles) => {
+  copy(inDirPath, outDirPath, vars, async (err, createdFiles) => {
     if (err) throw err;
 
     log(g(`\nCreating Files in ${d(outDirPath)}\n`));
@@ -23,6 +24,10 @@ module.exports = async () => {
       const fileName = path.basename(filePath);
       log(`${g("CREATED:")} ${d(fileName)}`);
     });
+
+    // dedup
+    process.chdir(outDirPath);
+    await execa("npm", ["dedup"]);
 
     alert({
       type: "success",
