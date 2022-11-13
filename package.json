@@ -18,6 +18,7 @@
     "copy-template-dir": "1.4.0",
     "enquirer": "2.3.6",
     "execa": "5.1.1",
-    "meow": "7.1.1"
+    "meow": "7.1.1",
+    "ora": "5.4.1"
   }
 }

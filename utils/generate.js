@@ -1,10 +1,12 @@
 const execa = require("execa");
-const { green: g, dim: d } = require("chalk");
+const ora = require("ora");
+const { green: g, dim: d, yellow: y } = require("chalk");
 const path = require("path");
 const copy = require("copy-template-dir");
 
 const alert = require("cli-alerts");
 
+const spinner = ora({ text: `` });
 const questions = require("./questions");
 
 const log = console.log;
@@ -26,8 +28,10 @@ module.exports = async () => {
     });
 
     // dedup
+    spinner.start(`${y("DEDUP")} running...`);
     process.chdir(outDirPath);
     await execa("npm", ["dedup"]);
+    spinner.succeed(`${g("DEDUP")} ran`);
 
     alert({
       type: "success",
